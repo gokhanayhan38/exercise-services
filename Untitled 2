@@ -1,0 +1,81 @@
+
+Örnek 1 :
+
+1)
+Activity.java clası ile bizim get de donderecegimiz veririn tipini tanımladık
+constructorlarını koyduk
+2)ActivityRepositoryStub.java clası ile veritabanına benzer (veritabanından cekmedigimiz icin boyle yaptık) bir stilde kullanıcıya gonderilecek olan liste yi hazırladık
+
+3) ActivityRepoository .java interfacesini sadec e iyi programcılık yapmak icin stub clasına sagtık refactor > extratc interface ye basarak olusturduk
+4) ActivityRecource.java clasında ise servisimizi yazdık 
+
+
+not: her json hem xml destegi icin 
+@Produces({MediaType.APPLICATION_JSON,APPLICATION_XML})  KULLANILMALIDIR,
+BUNU KULLANIKER FİREFOXDA pOSTER , CHROME DA POSTMAN PLUGİNLERİNİN KURULU OLMASI GEREKİR. YOKSA DEFAULT OLARAK ALIR VERİYİ
+
+
+Not : kodda fonksiyonda 1 tane return olsun recursive yapmıyorsan unreachable code diye bi hata verir
+
+
+
+
+
+HTTP ERROR CODES:  video 66
+http://fehmicansaglam.net/herkes-restful-web-api-tasarlayabilir/
+bu kodları respon objesi olusturup onunla kullanıcaz.
+
+200 ok 
+301 moved permanently(deprecated service)
+400 bad request (miisng information)
+401 unauthorized(yetkisiz)
+403 forbidden
+404 not found 
+ 500 internal server error
+ 
+200 	İşlemin başarıyla gerçekleştiğini belirtir. Yalnızca başarı durumunda kullanılmalıdır.
+400 	İsteğin geçersiz olduğunu belirtir. Eksik bir parametre ya da parametrenin hatalı olması durumunda kullanmanızı öneririm.
+403 	İstemcinin bu kaynağa erişiminin yasak olduğunu belirtir. Kendi kendini açıklıyor.
+404 	İstenen kaynağın bulunamadığı anlamına gelir. Örnek olarak belirtilen ID'ye sahip kullanıcı yok ise bu kodu kullanabilirsiniz.
+500 	Servis sağlayıcıda beklenmeyen bir hata olduğunda bu kodu kullanmalısınız. 
+ 
+
+şimdi activityresources in icindeki eski getactivity yi yani sunu:
+	@GET
+	@Produces(MediaType.APPLICATION_JSON) 
+	@Path("{activityId}")//localhost:8080/exercise-services/webapi/activities/1234
+	public Activity getActivity(@PathParam ("activityId") String activityId){
+		//gelen parametre path deki activityID nin yerine yazılsın ve bu parametre bu methodun icinde string türünde ve adi activityId olarak kullanılsın.
+		
+		System.out.println("Getting activity ID:" + activityId); // bunu junit test calısıyormu diye yazdık
+		return activityRepository.findAllActivity(activityId);
+	}
+değiştirelim, degişmis sekli clasın icine yazıcak bunu buraya kontrol icin koydum
+
+
+
+
+
+
+Query Params
+bu bolum normal get li portlu aplicationdan farklı olarak gercekleştirilecek
+
+once avtivitysearchclient i olusturalım , sonra serveri olusturucaz bunun serveri farklı(actibitysearchresource) , sonra repositorystub in icinde find by desc metodunu yazdık.
+not:So, now we have everything setup for our Repository, our RepositoryStub, our Service, so our SearchResource is all built. Our Client's all built
+en sona da unit testi yazıcaz.
+
+
+
+
+
+
+
+{
+	"desc":"swimming",
+	"duration":"55"
+}
+
+
+<desc>swimming </desc>
+<duration>55 </duration>
+
